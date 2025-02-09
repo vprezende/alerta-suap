@@ -1,4 +1,3 @@
-import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import os
@@ -10,58 +9,6 @@ from selenium.webdriver.chrome.options import Options
 
 # Carregar variáveis de ambiente
 load_dotenv()
-
-class DeepSeek:
-
-  def __init__(self):
-
-    self.deepseek_api = os.getenv('DEEPSEEK_API')
-
-    # Definindo comportamento geral para o deepseek
-
-    self.history = [
-      {
-        "role": "system", 
-        "content": "Você vai responder todas as perguntas em português"
-      }
-    ]
-
-    self.headers = {
-      "Content-Type": "application/json"
-    }
-
-  def ask(self, prompt):
-
-
-    # adicionando mensagem do usuário ao histórico de conversas
-    self.history.append({"role": "user", "content": prompt})
-
-    data = {
-      "model": "deepseek-r1:8b",
-      "messages": self.history,
-      "stream": False
-    }
-
-    response = requests.post(self.deepseek_api, json=data, headers=self.headers)
-
-    if response.status_code == 200:
-      response_model = response.json()["message"]["content"]
-
-      # adicionando resposta do deepseek ao histórico de conversas
-      self.history.append({"role": "assistant", "content": response_model})
-      
-      soup = BeautifulSoup(response_model, 'html.parser')
-
-      think_tags = soup.find('think')
-    
-      for tag in think_tags:
-        tag.decompose()
-
-      clean_response = soup.get_text().strip()
-
-      return clean_response
-    else:
-      return f"Erro: {response.status_code} - {response.text}"
     
 class Suap:
 
@@ -72,8 +19,6 @@ class Suap:
     suap_bolsas_url = os.getenv("SUAP_BOLSAS_URL")
     suap_username = os.getenv("USER")
     suap_password = os.getenv("PASSWORD")
-
-    deepseek = DeepSeek()
 
     # Fazendo login
 
@@ -106,10 +51,61 @@ class Suap:
     # retornando apenas as bolsas do Campus Bom Jesus do Itabapoana
 
     html = browser.page_source
-
     soup = BeautifulSoup(html, "html.parser")
 
-    tables = soup.find_all("table")
+    # Lista para armazenar as bolsas encontradas
+    
+    bolsas_dgcbjesus = []
+
+    # Encontrar todas as tabelas na página
+    for table in soup.find_all('table'):
+      # Encontrar todas as linhas da tabela
+      rows = table.find_all('tr')
+    
+      # Pular tabelas vazias
+      if not rows:
+        continue
+    
+      # Encontrar cabeçalhos (se existirem)
+      headers = [th.get_text(strip=True) for th in rows[0].find_all('th')]
+    
+      # Determinar o índice da coluna "Campus"
+      try:
+        campus_index = headers.index("Campus")
+      except ValueError:
+        # Se não encontrar cabeçalhos, tentar adivinhar a estrutura
+        campus_index = None  # Ajuste este índice conforme necessário
+    
+      # Iterar pelas linhas da tabela (começando da segunda linha se houver cabeçalhos)
+      for row in rows[1:]:
+        cols = row.find_all('td')
+        
+        # Validar se há colunas suficientes
+        if not cols:
+          continue
+            
+        # Se não encontramos cabeçalho, assumir que a quarta coluna é o campus
+        current_index = campus_index if campus_index is not None else 3  # Ajuste este índice
+        
+        try:
+          campus = cols[current_index].get_text(strip=True)
+        except IndexError:
+          continue
+        
+        # Verificar se o campus é o desejado
+        if campus == "DGCBJESUS":
+          # Extrair todos os dados da linha
+          dados_bolsa = {}
+          for i, col in enumerate(cols):
+            header_name = headers[i] if i < len(headers) else f'Coluna_{i+1}'
+            dados_bolsa[header_name] = col.get_text(strip=True)
+          bolsas_dgcbjesus.append(dados_bolsa)
+
+    for bolsa in bolsas_dgcbjesus:
+      print(f"Projeto: {bolsa["Projeto"]}")
+      print(f"Coordenador: {bolsa["Coordenador"]}")
+      print(f"Campus: {bolsa["Campus"]}")
+      print("-" * 50)
 
 def main():
 
