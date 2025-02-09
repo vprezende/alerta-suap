@@ -1,2 +1,4 @@
 os
 python-dotenv
+requests
+bs4
