@@ -28,4 +28,36 @@ DEEPSEEK_API=deepseek_api_url
 SUAP_URL=https://suap.iff.edu.br/accounts/login
 USER=seu_usuario
 PASSWORD=sua_senha
+
 ```
+## Como Usar
+
+1. Clone o repositório para sua máquina local:
+
+    ```bash
+    git clone https://github.com/vprezende/alerta-bolsa-suap.git
+    cd alerta-bolsa-suap
+    ```
+
+2. Instale as dependências necessárias:
+
+    ```bash
+    pip3 install -r requirements.txt
+    ```
+
+3. Execute o script principal para começar a monitorar os prazos e etapas:
+
+    ```bash
+    cd src
+    python3 main.py
+    ```
+
+O sistema irá começar a monitorar o SUAP e enviar e-mails com as atualizações conforme necessário.
+
+## Contribuições
+
+Sinta-se à vontade para contribuir com melhorias, novas funcionalidades ou correções de bugs 🚀. Para isso, faça um fork deste repositório, crie uma branch com sua modificação e envie um pull request. 💡
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes. 📝
