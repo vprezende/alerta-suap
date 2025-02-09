@@ -49,6 +49,8 @@ PASSWORD=sua_senha
 
     ```bash
     cd src
+    ```
+    ```bash
     python3 main.py
     ```
 
