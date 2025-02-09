@@ -13,9 +13,9 @@ Este projeto tem como objetivo automatizar o envio de notificações por e-mail 
 - 🐍 Python 3.13.2
 - 🔑 `dotenv` para gerenciar configurações sensíveis como senhas.
 - 🖥️ `os` para acessar variáveis de ambiente no sistema operacional.
-- 🐋 `DeepSeek` para obtenção de interações inteligentes e respostas precisas via API.
-- 🌐 `requests` para fazer requisições HTTP de maneira simples e eficiente.
 - 🧑‍💻 `bs4` para fazer parsing de conteúdo HTML e facilitar a extração de dados de páginas web.
+- 🖥️ `selenium` para automação de navegação na web e interação com o SUAP.
+- ⏳ `time` para gerenciar intervalos de tempo e pausas no processo de monitoramento.
 
 ## Requisitos
 
@@ -28,8 +28,8 @@ pip3 install -r requirements.txt
 Além disso, crie um arquivo `.env` para armazenar suas credenciais de usuário e outras configurações sensíveis:
 
 ```ini
-DEEPSEEK_API=deepseek_api_url
-SUAP_URL=https://suap.iff.edu.br/accounts/login
+SUAP_LOGIN_URL=https://suap.iff.edu.br/accounts/login
+SUAP_BOLSAS_URL=https://suap.iff.edu.br/sisep/adicionar_candidatura_participacao/
 USER=seu_usuario
 PASSWORD=sua_senha
 ```
