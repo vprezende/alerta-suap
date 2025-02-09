@@ -1,5 +1,5 @@
 os
-python-dotenv
 bs4
-selenium
 time
+python-dotenv
+selenium
