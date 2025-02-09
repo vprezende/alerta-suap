@@ -41,7 +41,7 @@ class Suap:
     buttonLogin.click()
     sleep(2)
 
-    # Acessando as página das bolsas
+    # Acessando a página das bolsas
 
     browser.get(url=suap_bolsas_url)
 
