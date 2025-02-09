@@ -12,7 +12,7 @@ Este projeto tem como objetivo automatizar o envio de notificações por e-mail 
 
 - 🐍 Python 3.13.2
 - 🔑 `dotenv` para gerenciar configurações sensíveis como senhas.
-- 🐋 **DeepSeek**: Tecnologia de ponta para processamento de linguagem natural, que facilita interações inteligentes e a obtenção de respostas precisas via API.
+- 🐋 `DeepSeek` para obtenção de interações inteligentes e respostas precisas via API.
 
 ## Requisitos
 
