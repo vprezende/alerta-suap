@@ -28,8 +28,8 @@ DEEPSEEK_API=deepseek_api_url
 SUAP_URL=https://suap.iff.edu.br/accounts/login
 USER=seu_usuario
 PASSWORD=sua_senha
-
 ```
+
 ## Como Usar
 
 1. Clone o repositório para sua máquina local:
