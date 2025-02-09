@@ -11,7 +11,11 @@ Este projeto tem como objetivo automatizar o envio de notificações por e-mail 
 ## Tecnologias Utilizadas
 
 - 🐍 Python 3.13.2
-- 🔑 `dotenv` para gerenciar configurações sensíveis como credenciais de e-mail.
+- 🔑 `dotenv` para gerenciar configurações sensíveis como senhas.
+- 🖥️ `os` para acessar variáveis de ambiente no sistema operacional.
+- 🐋 `DeepSeek` para obtenção de interações inteligentes e respostas precisas via API.
+- 🌐 `requests` para fazer requisições HTTP de maneira simples e eficiente.
+- 🧑‍💻 `bs4` para fazer parsing de conteúdo HTML e facilitar a extração de dados de páginas web.
 
 ## Requisitos
 
