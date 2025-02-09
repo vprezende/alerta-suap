@@ -54,54 +54,30 @@ class Suap:
     soup = BeautifulSoup(html, "html.parser")
 
     # Lista para armazenar as bolsas encontradas
-    
-    bolsas_dgcbjesus = []
 
-    # Encontrar todas as tabelas na página
-    for table in soup.find_all('table'):
-      # Encontrar todas as linhas da tabela
-      rows = table.find_all('tr')
-    
-      # Pular tabelas vazias
-      if not rows:
-        continue
-    
-      # Encontrar cabeçalhos (se existirem)
-      headers = [th.get_text(strip=True) for th in rows[0].find_all('th')]
-    
-      # Determinar o índice da coluna "Campus"
-      try:
-        campus_index = headers.index("Campus")
-      except ValueError:
-        # Se não encontrar cabeçalhos, tentar adivinhar a estrutura
-        campus_index = None  # Ajuste este índice conforme necessário
-    
-      # Iterar pelas linhas da tabela (começando da segunda linha se houver cabeçalhos)
-      for row in rows[1:]:
-        cols = row.find_all('td')
-        
-        # Validar se há colunas suficientes
-        if not cols:
+    bolsas = []
+
+    # Procurando as tabelas
+
+    for table in soup.find_all("table"):
+      for row in table.find_all("tr")[1:]:  # Ignora a primeira linha
+        cols = row.find_all("td")
+
+        if not cols or len(cols) < 4:  # Verifica se tem pelo menos 4 colunas
           continue
-            
-        # Se não encontramos cabeçalho, assumir que a quarta coluna é o campus
-        current_index = campus_index if campus_index is not None else 3  # Ajuste este índice
-        
-        try:
-          campus = cols[current_index].get_text(strip=True)
-        except IndexError:
-          continue
-        
-        # Verificar se o campus é o desejado
+
+        campus = cols[3].get_text(strip=True)  # 4ª coluna (índice 3)
+
+        # Adicionando informações das bolsas na lista de dicionários
         if campus == "DGCBJESUS":
-          # Extrair todos os dados da linha
-          dados_bolsa = {}
-          for i, col in enumerate(cols):
-            header_name = headers[i] if i < len(headers) else f'Coluna_{i+1}'
-            dados_bolsa[header_name] = col.get_text(strip=True)
-          bolsas_dgcbjesus.append(dados_bolsa)
-
-    for bolsa in bolsas_dgcbjesus:
+          bolsas.append({
+            "Projeto": cols[1].get_text(strip=True),
+            "Coordenador": cols[2].get_text(strip=True),
+            "Campus": cols[3].get_text(strip=True)
+          })
+          
+    # Exibindo as bolsas
+    for bolsa in bolsas:
       print(f"Projeto: {bolsa["Projeto"]}")
       print(f"Coordenador: {bolsa["Coordenador"]}")
       print(f"Campus: {bolsa["Campus"]}")
