@@ -2,6 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import os
+from time import sleep
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 
 # Carregar variáveis de ambiente
 load_dotenv()
@@ -25,7 +30,7 @@ class DeepSeek:
       "Content-Type": "application/json"
     }
 
-  def response(self, prompt):
+  def ask(self, prompt):
 
 
     # adicionando mensagem do usuário ao histórico de conversas
@@ -63,34 +68,48 @@ class Suap:
   def __init__(self):
     
     # Acessando as variáveis de ambiente
-    suap_url = os.getenv("SUAP_URL")
-    user = os.getenv("USER")
-    password = os.getenv("PASSWORD")
+    suap_login_url = os.getenv("SUAP_LOGIN_URL")
+    suap_bolsas_url = os.getenv("SUAP_BOLSAS_URL")
+    suap_username = os.getenv("USER")
+    suap_password = os.getenv("PASSWORD")
 
     deepseek = DeepSeek()
 
-    session = requests.Session()
-    response = session.get(suap_url)
+    # Fazendo login
 
-    if response.status_code == 200:
+    options = Options()
+    options.add_argument("--headless")
 
-      # pegando o token csrf para autenticação
-      client = requests.Session()
-      csrftoken = client.get(suap_url).cookies['csrftoken']
-    
-      # Credenciais de acesso
+    browser = webdriver.Chrome(options=options)
 
-      payload = {
-        "username": user,
-        "password": password,
-        "csrfmiddlewaretoken": csrftoken,
-      }
+    browser.get(url=suap_login_url)
+    sleep(1)
 
-      response_login = session.post(suap_url, data=payload)
-    
+    username = browser.find_element(by=By.ID, value="id_username")
+    username.send_keys(suap_username)
+    sleep(1)
 
-      print(response_login.status_code)
+    password = browser.find_element(by=By.ID, value="id_password")
+    password.send_keys(suap_password)
+    sleep(1)
 
+    buttonLogin = browser.find_element(by=By.CLASS_NAME, value="submit-row")
+    buttonLogin.click()
+    sleep(2)
+
+    # Acessando as página das bolsas
+
+    browser.get(url=suap_bolsas_url)
+
+    sleep(3)
+
+    # retornando apenas as bolsas do Campus Bom Jesus do Itabapoana
+
+    html = browser.page_source
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    tables = soup.find_all("table")
 
 def main():
 
