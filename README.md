@@ -18,4 +18,14 @@ Este projeto tem como objetivo automatizar o envio de notificações por e-mail 
 Antes de rodar o projeto, instale as dependências:
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
+```
+
+Além disso, crie um arquivo `.env` para armazenar suas credenciais de usuário e outras configurações sensíveis:
+
+```ini
+DEEPSEEK_API=deepseek_api_url
+SUAP_URL=https://suap.iff.edu.br/accounts/login
+USER=seu_usuario
+PASSWORD=sua_senha
+```
