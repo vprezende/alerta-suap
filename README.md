@@ -37,6 +37,7 @@ PASSWORD=sua_senha
     ```bash
     git clone https://github.com/vprezende/alerta-bolsa-suap.git
     ```
+    
     ```bash
     cd alerta-bolsa-suap
     ```
@@ -52,6 +53,7 @@ PASSWORD=sua_senha
     ```bash
     cd src
     ```
+    
     ```bash
     python3 main.py
     ```
