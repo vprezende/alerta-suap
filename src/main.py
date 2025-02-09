@@ -1,11 +1,11 @@
-from config import *
+import config
 
 def main():
-  config = Config()
-  print(f"API do DeepSeek: {config.deepseek_api}")
-  print(f"url do suap: {config.suap_url}")
-  print(f"usuário: {config.user}")
-  print(f"Senha: {config.password}")
+  env_config = config.load_config()
+  print(f"API do DeepSeek: {env_config.deepseek_api}")
+  print(f"url do suap: {env_config.suap_url}")
+  print(f"usuário: {env_config.user}")
+  print(f"Senha: {env_config.password}")
 
 if __name__ == "__main__":
   main()
