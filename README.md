@@ -12,3 +12,10 @@ Este projeto tem como objetivo automatizar o envio de notificações por e-mail 
 
 - 🐍 Python 3.13.2
 - 🔑 `dotenv` para gerenciar configurações sensíveis como credenciais de e-mail.
+
+## Requisitos
+
+Antes de rodar o projeto, instale as dependências:
+
+```bash
+pip install -r requirements.txt
