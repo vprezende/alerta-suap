@@ -7,3 +7,8 @@ Este projeto tem como objetivo automatizar o envio de notificações por e-mail 
 - 🚨 Monitoramento automático de novas publicações de bolsas no SUAP.
 - 📅 Envio de notificações por e-mail sobre prazos de inscrição.
 - ⏳ Envio de alertas sobre etapas e status dos processos seletivos.
+
+## Tecnologias Utilizadas
+
+- 🐍 Python 3.13.2
+- 🔑 `dotenv` para gerenciar configurações sensíveis como credenciais de e-mail.
