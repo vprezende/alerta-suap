@@ -1,4 +1,4 @@
-<h1 align="center">🚨 Alerta Suap</h1>
+<h1 align="center">Alerta Suap 🚨</h1>
 
 Este projeto tem como objetivo automatizar o envio de notificações por e-mail sobre os prazos de inscrição em bolsas publicadas no sistema SUAP 🎓💻 e também as etapas dos processos seletivos 🔔📅. O sistema monitora atualizações no SUAP e envia alertas por e-mail para os usuários interessados 📬.
 
