@@ -39,11 +39,11 @@ PASSWORD=sua_senha
 1. Clone o repositório para sua máquina local:
 
     ```bash
-    git clone https://github.com/vprezende/alerta-bolsa-suap.git
+    git clone https://github.com/vprezende/alerta-suap.git
     ```
     
     ```bash
-    cd alerta-bolsa-suap
+    cd alerta-suap
     ```
 
 2. Instale as dependências necessárias:
