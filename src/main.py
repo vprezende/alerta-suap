@@ -1,10 +1,19 @@
+# bibliotecas para gerenciar e acessar as variáveis de ambiente
 import os
-from bs4 import BeautifulSoup
-from time import sleep
 from dotenv import load_dotenv
+
+# bibliotecas para fazer a automação para acessar o site
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+
+# biblioteca para extração dos dados
+from bs4 import BeautifulSoup
+
+# modulo da biblioteca time para dar um delay
+from time import sleep
+
+import requests
 
 # Carregar variáveis de ambiente
 load_dotenv()
@@ -16,8 +25,14 @@ class Suap:
     # Acessando as variáveis de ambiente
     suap_login_url = os.getenv("SUAP_LOGIN_URL")
     suap_bolsas_url = os.getenv("SUAP_BOLSAS_URL")
-    suap_username = os.getenv("USER")
-    suap_password = os.getenv("PASSWORD")
+
+    suap_username = os.getenv("SUAP_USERNAME")
+    suap_password = os.getenv("SUAP_PASSWORD")
+
+    receiver_email = os.getenv("EMAIL")
+    
+    mailtrap_id = os.getenv("MAILTRAP_INBOX_ID")
+    mailtrap_token = os.getenv("MAILTRAP_API_TOKEN")
 
     # Fazendo login
 
@@ -74,13 +89,51 @@ class Suap:
             "Coordenador": cols[2].get_text(strip=True),
             "Campus": cols[3].get_text(strip=True)
           })
-          
+
+    # Configurações para enviar o e-mail
+    send_email_url = f"https://send.api.mailtrap.io/api/send"
+
     # Exibindo as bolsas
     for bolsa in bolsas:
-      print(f"Projeto: {bolsa["Projeto"]}")
-      print(f"Coordenador: {bolsa["Coordenador"]}")
-      print(f"Campus: {bolsa["Campus"]}")
-      print("-" * 50)
+
+      email_body = f"""
+      <p>Projeto: {bolsa["Projeto"]}</p>
+      <p>Coordenador: {bolsa["Coordenador"]}</p>
+      <p>Campus: {bolsa["Campus"]}</p>
+      <br>
+      """
+
+      payload = {
+        "from": {
+            "email": "notificacoes@demomailtrap.com",
+            "name": "Notificador de Bolsas"
+        },
+        "to": [
+            {
+                "email": receiver_email,
+                "name": "Destinatário"
+            }
+        ],
+        "subject": "Bolsas Disponíveis",
+        "html": email_body + f"<br> Acesse esse link para se inscrever nas bolsas: {suap_bolsas_url}"
+      }
+
+    # Enviar o e-mail
+    headers = {
+        "Authorization": f"Bearer {mailtrap_token}",
+        "Content-Type": "application/json"
+    }
+
+    response = requests.post(send_email_url, json=payload, headers=headers)
+
+    print("\n", end="")
+
+    if response.status_code == 200:
+      print(f"E-mail enviado para {receiver_email}")
+    else:
+      print(f"Erro ao enviar e-mail: {response.text}")
+
+    print("\n", end="")
 
 def main():
 
