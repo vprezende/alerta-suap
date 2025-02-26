@@ -15,6 +15,8 @@ Este projeto tem como objetivo automatizar o envio de notificações por e-mail 
 - 🖥️ `os` para acessar variáveis de ambiente no sistema operacional.
 - 🧑‍💻 `bs4` para fazer parsing de conteúdo HTML e facilitar a extração de dados de páginas web.
 - 🖥️ `selenium` para automação de navegação na web e interação com o SUAP.
+- 🌐 `requests` para fazer requisições HTTP.
+- 📧 `API Mailtrap` para envio e teste de e-mails.
 - ⏳ `time` para gerenciar intervalos de tempo e pausas no processo de monitoramento.
 
 ## Requisitos
@@ -30,8 +32,13 @@ Além disso, crie um arquivo `.env` para armazenar suas credenciais de usuário 
 ```ini
 SUAP_LOGIN_URL=https://suap.iff.edu.br/accounts/login
 SUAP_BOLSAS_URL=https://suap.iff.edu.br/sisep/adicionar_candidatura_participacao/
-USER=seu_usuario
-PASSWORD=sua_senha
+SUAP_USERNAME=seu_usuario
+SUAP_PASSWORD=sua_senha
+
+EMAIL=seu_email
+
+MAILTRAP_INBOX_ID=seu_id_mailtrap
+MAILTRAP_API_TOKEN=seu_token_mailtrap
 ```
 
 ## Como Usar
