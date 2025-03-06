@@ -31,7 +31,6 @@ class Suap:
 
     receiver_email = os.getenv("EMAIL")
     
-    mailtrap_id = os.getenv("MAILTRAP_INBOX_ID")
     mailtrap_token = os.getenv("MAILTRAP_API_TOKEN")
 
     # Fazendo login
