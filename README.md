@@ -36,8 +36,6 @@ SUAP_USERNAME=seu_usuario
 SUAP_PASSWORD=sua_senha
 
 EMAIL=seu_email
-
-MAILTRAP_INBOX_ID=seu_id_mailtrap
 MAILTRAP_API_TOKEN=seu_token_mailtrap
 ```
 
