@@ -31,7 +31,7 @@ Além disso, crie um arquivo `.env` para armazenar suas credenciais de usuário 
 
 ```ini
 SUAP_LOGIN_URL=https://suap.iff.edu.br/accounts/login
-SUAP_BOLSAS_URL=https://suap.iff.edu.br/sisep/adicionar_candidatura_participacao/
+SUAP_BOLSAS_URL=https://suap.iff.edu.br/sisep/adicionar_candidatura_participacao
 SUAP_USERNAME=seu_usuario
 SUAP_PASSWORD=sua_senha
 
