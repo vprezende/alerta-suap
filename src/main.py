@@ -30,7 +30,6 @@ class Suap:
     suap_password = os.getenv("SUAP_PASSWORD")
 
     receiver_email = os.getenv("EMAIL")
-    
     mailtrap_token = os.getenv("MAILTRAP_API_TOKEN")
 
     # Fazendo login
@@ -92,6 +91,10 @@ class Suap:
     # Configurações para enviar o e-mail
     send_email_url = f"https://send.api.mailtrap.io/api/send"
 
+    if len(bolsas) == 0:
+      print("\n", end="")
+      print("Nenhuma bolsa encotrada")
+
     # Exibindo as bolsas
     for bolsa in bolsas:
 
@@ -114,23 +117,23 @@ class Suap:
             }
         ],
         "subject": "Bolsas Disponíveis",
-        "html": email_body + f"<br> Acesse esse link para se inscrever nas bolsas: {suap_bolsas_url}"
+        "html": email_body + f"<br> Acesse esse link para se inscrever nas bolsas: {suap_bolsas_url}" 
       }
 
-    # Enviar o e-mail
-    headers = {
-        "Authorization": f"Bearer {mailtrap_token}",
-        "Content-Type": "application/json"
-    }
+      # Enviar o e-mail
+      headers = {
+          "Authorization": f"Bearer {mailtrap_token}",
+          "Content-Type": "application/json"
+      }
 
-    response = requests.post(send_email_url, json=payload, headers=headers)
+      response = requests.post(send_email_url, json=payload, headers=headers)
 
-    print("\n", end="")
+      print("\n", end="")
 
-    if response.status_code == 200:
-      print(f"E-mail enviado para {receiver_email}")
-    else:
-      print(f"Erro ao enviar e-mail: {response.text}")
+      if response.status_code == 200:
+        print(f"E-mail enviado para {receiver_email}")
+      else:
+        print(f"Erro ao enviar e-mail: {response.text}")
 
     print("\n", end="")
 

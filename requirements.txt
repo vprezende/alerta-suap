@@ -1,6 +1,4 @@
-os
 bs4
-time
 python-dotenv
 selenium
 requests
